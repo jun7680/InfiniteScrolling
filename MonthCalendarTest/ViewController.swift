@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     let itemColors = [UIColor.red, UIColor.yellow, UIColor.green]
     var currentIndex: CGFloat = 0
     var isOneStepPaging = true
-    
+    var cellWidth: CGFloat = 0
     var scrollDirection = ScrollDirection.none
     
     lazy var collectionView: UICollectionView = {
@@ -105,7 +105,7 @@ extension ViewController: UIScrollViewDelegate, UICollectionViewDataSource, UICo
         else { return }
         
         let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
-        
+        cellWidth = cellWidthIncludingSpacing
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
         var roundedIndex = round(index)
@@ -118,15 +118,15 @@ extension ViewController: UIScrollViewDelegate, UICollectionViewDataSource, UICo
         
         offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
         targetContentOffset.pointee = offset
-        
-        print("🧏‍♂️1")
-        
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("🧏‍♂️2")
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("🧏‍♂️3")
+        
+        let numberOfCell = itemColors.count
+        let page = Int(scrollView.contentOffset.x) / Int(cellWidth)
+        
+        if page == 0 {
+            
+        }
     }
 }
 class CollectionViewCell: UICollectionViewCell {
